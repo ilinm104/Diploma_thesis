@@ -16,7 +16,7 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
 
 
-# Application definition
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -59,24 +59,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "social_network.wsgi.application"
 
-# Database configuration
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "social_network",  # Название базы данных
-        "USER": "postgres",  # Пользователь базы данных
-        "PASSWORD": "12viVI09",  # Пароль пользователя
-        "HOST": "localhost",  # Адрес сервера базы данных
-        "PORT": "5432",  # Порт базы данных
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('NAME'),
+        'USER': env('USER'),
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('HOST', default='localhost'),
+        'PORT': env('PORT', default='5432')   # Все данные в файле .env
     }
 }
 
-# Authentication backends
+
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-# Password validation
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
@@ -86,22 +86,22 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# Internationalization
+
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+
 STATIC_URL = "/static/"  # URL для статичных ресурсов
 STATICFILES_DIRS = [BASE_DIR / "static"]  # Директория для статических файлов
 
-# Media files (загружаемые пользователем файлы)
+
 MEDIA_URL = "/media/"  # URL для медиафайлов
 MEDIA_ROOT = BASE_DIR / "media"  # Директория для загруженных файлов
 
-# Default primary key field type
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Конфигурация Django Rest Framework
@@ -122,7 +122,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-# Email setup (опционально)
+
 EMAIL_BACKEND = (
     "django.core.mail.backends.console.EmailBackend"  # Логгирование почты в консоль
 )

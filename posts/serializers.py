@@ -9,11 +9,13 @@ from .models import Post, Comment, Like
 class CommentSerializer(serializers.ModelSerializer):
     """
     Серверизация модели комментария.
-    Включает только авторство, текст и дату создания.
+    Включает авторство (имя), текст и дату создания.
     """
+    author = serializers.CharField(source='author.username', read_only=True)  
+
     class Meta:
         model = Comment
-        fields = ['author', 'text', 'created_at']
+        fields = ['author', 'text', 'created_at']  
         read_only_fields = ['author', 'created_at']
 
 
@@ -27,7 +29,7 @@ class PostSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()  # Возвращает абсолютный путь изображения
 
     def get_image_url(self, obj):
-        request = self.context.get('request')  # Берем объект запроса из контекста
+        request = self.context.get('request')  # Берём объект запроса из контекста
         if obj.image:
             # Кодируем строку URL, если она содержит спецсимволы
             path = quote(obj.image.url)
